@@ -5,9 +5,12 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.ColorFilter;
 import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.graphics.Rect;
 import android.graphics.Shader;
 import android.graphics.Shader.TileMode;
@@ -235,7 +238,7 @@ public class FloatingActionButton extends ImageButton {
         new Drawable[] {
             getResources().getDrawable(mSize == SIZE_NORMAL ? R.drawable.fab_bg_normal : R.drawable.fab_bg_mini),
             createFillDrawable(strokeWidth),
-            createOuterStrokeDrawable(strokeWidth),
+			createFillDrawable(strokeWidth),
             getIconDrawable()
         });
 
@@ -276,7 +279,7 @@ public class FloatingActionButton extends ImageButton {
     }
   }
 
-  private StateListDrawable createFillDrawable(float strokeWidth) {
+  protected StateListDrawable createFillDrawable(float strokeWidth) {
     StateListDrawable drawable = new StateListDrawable();
     drawable.addState(new int[] { -android.R.attr.state_enabled }, createCircleDrawable(mColorDisabled, strokeWidth));
     drawable.addState(new int[] { android.R.attr.state_pressed }, createCircleDrawable(mColorPressed, strokeWidth));
@@ -284,7 +287,7 @@ public class FloatingActionButton extends ImageButton {
     return drawable;
   }
 
-  private Drawable createCircleDrawable(int color, float strokeWidth) {
+  protected Drawable createCircleDrawable(int color, float strokeWidth) {
     int alpha = Color.alpha(color);
     int opaqueColor = opaque(color);
 
@@ -309,7 +312,7 @@ public class FloatingActionButton extends ImageButton {
     return drawable;
   }
 
-  private static class TranslucentLayerDrawable extends LayerDrawable {
+	protected static class TranslucentLayerDrawable extends LayerDrawable {
     private final int mAlpha;
 
     public TranslucentLayerDrawable(int alpha, Drawable... layers) {
@@ -360,7 +363,7 @@ public class FloatingActionButton extends ImageButton {
     return Color.HSVToColor(Color.alpha(argb), hsv);
   }
 
-  private int halfTransparent(int argb) {
+	protected int halfTransparent(int argb) {
     return Color.argb(
         Color.alpha(argb) / 2,
         Color.red(argb),
@@ -369,7 +372,7 @@ public class FloatingActionButton extends ImageButton {
     );
   }
 
-  private int opaque(int argb) {
+  protected int opaque(int argb) {
     return Color.rgb(
         Color.red(argb),
         Color.green(argb),
@@ -377,7 +380,7 @@ public class FloatingActionButton extends ImageButton {
     );
   }
 
-  private Drawable createInnerStrokesDrawable(final int color, float strokeWidth) {
+	protected Drawable createInnerStrokesDrawable(final int color, float strokeWidth) {
     if (!mStrokeVisible) {
       return new ColorDrawable(Color.TRANSPARENT);
     }
@@ -426,4 +429,22 @@ public class FloatingActionButton extends ImageButton {
 
     super.setVisibility(visibility);
   }
+
+	private int[] STATE_EXPANDED = {R.attr.state_menu_expanded};
+	private boolean mIsExpanded = false;
+
+	public void setExpanded(boolean expanded){
+		mIsExpanded = expanded;
+		refreshDrawableState();
+	}
+
+	@Override
+	public int[] onCreateDrawableState(int extraSpace) {
+		final int[] drawableState = super.onCreateDrawableState(extraSpace + 1);
+		if(mIsExpanded){
+			mergeDrawableStates(drawableState, STATE_EXPANDED);
+		}
+		return drawableState;
+	}
+
 }
