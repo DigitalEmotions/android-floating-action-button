@@ -1,11 +1,18 @@
 <resources>
     <dimen name="fab_size_normal">56dp</dimen>
     <dimen name="fab_size_mini">40dp</dimen>
+    <dimen name="fab_size_large">72dp</dimen>
 
     <dimen name="fab_icon_size">24dp</dimen>
+    <dimen name="fab_icon_size_large">48dp</dimen>
+    <dimen name="fab_icon_size_huge">72dp</dimen>
 
     <dimen name="fab_plus_icon_size">14dp</dimen>
+    <dimen name="fab_plus_icon_size_large">24dp</dimen>
+    <dimen name="fab_plus_icon_size_huge">34dp</dimen>
     <dimen name="fab_plus_icon_stroke">2dp</dimen>
+    <dimen name="fab_plus_icon_stroke_large">3dp</dimen>
+    <dimen name="fab_plus_icon_stroke_huge">4dp</dimen>
 
     <dimen name="fab_shadow_offset">3dp</dimen>
     <dimen name="fab_shadow_radius">9dp</dimen>

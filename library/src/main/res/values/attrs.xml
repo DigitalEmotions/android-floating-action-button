@@ -8,6 +8,7 @@
         <attr name="fab_size" format="enum">
             <enum name="normal" value="0"/>
             <enum name="mini" value="1"/>
+            <enum name="large" value="2"/>
         </attr>
         <attr name="fab_title" format="string"/>
         <attr name="fab_stroke_visible" format="boolean"/>
@@ -25,6 +26,12 @@
         <attr name="fab_addButtonSize" format="enum">
             <enum name="normal" value="0"/>
             <enum name="mini" value="1"/>
+            <enum name="large" value="2"/>
+        </attr>
+        <attr name="fab_icon_size" format="enum">
+            <enum name="normal" value="0"/>
+            <enum name="large" value="1"/>
+            <enum name="huge" value="2"/>
         </attr>
         <attr name="fab_addButtonPlusIconColor" format="color"/>
         <attr name="fab_addButtonStrokeVisible" format="boolean"/>

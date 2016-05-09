@@ -10,7 +10,11 @@ import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.Shape;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.IntDef;
 import android.util.AttributeSet;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 public class AddFloatingActionButton extends FloatingActionButton {
   int mPlusColor;
@@ -29,11 +33,12 @@ public class AddFloatingActionButton extends FloatingActionButton {
 
   @Override
   void init(Context context, AttributeSet attributeSet) {
+	  super.init(context, attributeSet);
     TypedArray attr = context.obtainStyledAttributes(attributeSet, R.styleable.AddFloatingActionButton, 0, 0);
     mPlusColor = attr.getColor(R.styleable.AddFloatingActionButton_fab_plusIconColor, getColor(android.R.color.white));
-    attr.recycle();
+	  attr.recycle();
 
-    super.init(context, attributeSet);
+
   }
 
   /**
@@ -59,13 +64,37 @@ public class AddFloatingActionButton extends FloatingActionButton {
     throw new UnsupportedOperationException("Use FloatingActionButton if you want to use custom icon");
   }
 
+	float getPlusSize(){
+		switch (mDrawableIconSize){
+			case DRAWABLE_SIZE_HUGE:
+				return getDimension(R.dimen.fab_plus_icon_size_huge);
+			case DRAWABLE_SIZE_LARGE:
+				return getDimension(R.dimen.fab_plus_icon_size_large);
+			case DRAWABLE_SIZE_NORMAL:
+				return getDimension(R.dimen.fab_plus_icon_size);
+		}
+		return getDimension(R.dimen.fab_plus_icon_size);
+	}
+
+	float getStrokeSize(){
+		switch (mDrawableIconSize){
+			case DRAWABLE_SIZE_HUGE:
+				return getDimension(R.dimen.fab_plus_icon_stroke_huge);
+			case DRAWABLE_SIZE_LARGE:
+				return getDimension(R.dimen.fab_plus_icon_stroke_large);
+			case DRAWABLE_SIZE_NORMAL:
+				return getDimension(R.dimen.fab_plus_icon_stroke);
+		}
+		return getDimension(R.dimen.fab_plus_icon_stroke);
+	}
+
   @Override
   Drawable getIconDrawable() {
-    final float iconSize = getDimension(R.dimen.fab_icon_size);
+    final float iconSize = getDrawableDimen();
     final float iconHalfSize = iconSize / 2f;
 
-    final float plusSize = getDimension(R.dimen.fab_plus_icon_size);
-    final float plusHalfStroke = getDimension(R.dimen.fab_plus_icon_stroke) / 2f;
+    final float plusSize = getPlusSize();
+    final float plusHalfStroke = getStrokeSize() / 2f;
     final float plusOffset = (iconSize - plusSize) / 2f;
 
     final Shape shape = new Shape() {

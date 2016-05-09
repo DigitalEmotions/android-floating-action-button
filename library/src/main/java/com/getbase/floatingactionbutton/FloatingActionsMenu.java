@@ -51,6 +51,7 @@ public class FloatingActionsMenu extends ViewGroup {
 	protected int mAddButtonColorNormal;
   	protected int mAddButtonColorPressed;
 	protected int mAddButtonSize;
+	protected int mAddButtonIconSize;
   protected boolean mAddButtonStrokeVisible;
   protected int mExpandDirection;
 	protected int mExpandedColorNormal;
@@ -118,7 +119,7 @@ public class FloatingActionsMenu extends ViewGroup {
 	mExpandedColorNormal = attr.getColor(R.styleable.FloatingActionsMenu_fab_addButtonColorNormalExpanded, mAddButtonColorNormal);
 	  mExpandedColorPressed = attr.getColor(R.styleable.FloatingActionsMenu_fab_addButtonColorPressedExpanded, mAddButtonColorPressed);
 	  mCollapsedIcon = attr.getResourceId(R.styleable.FloatingActionsMenu_fab_collapsedIcon, 0);
-
+	  mAddButtonIconSize = attr.getInt(R.styleable.FloatingActionsMenu_fab_icon_size, FloatingActionButton.DRAWABLE_SIZE_NORMAL);
     attr.recycle();
 
     if (mLabelsStyle != 0 && expandsHorizontally()) {
@@ -186,7 +187,8 @@ public class FloatingActionsMenu extends ViewGroup {
 		protected StateListDrawable createFillDrawable(float strokeWidth) {
 			StateListDrawable drawable = new StateListDrawable();
 			drawable.addState(new int[] { -android.R.attr.state_enabled }, createCircleDrawable(mColorDisabled, strokeWidth));
-			drawable.addState(new int[] { android.R.attr.state_pressed }, createCircleDrawable(mColorPressed, strokeWidth));
+			drawable.addState(new int[]{R.attr.state_menu_expanded, android.R.attr.state_pressed}, createCircleDrawable(mExpandedColorPressed, strokeWidth));
+			drawable.addState(new int[] { android.R.attr.state_pressed, -R.attr.state_menu_expanded }, createCircleDrawable(mColorPressed, strokeWidth));
 			drawable.addState(new int[] {R.attr.state_menu_expanded}, createCircleDrawable(mExpandedColorNormal, strokeWidth));
 			drawable.addState(new int[] { }, createCircleDrawable(mColorNormal, strokeWidth));
 
@@ -240,6 +242,7 @@ public class FloatingActionsMenu extends ViewGroup {
 
     mAddButton.setId(R.id.fab_expand_menu_button);
     mAddButton.setSize(mAddButtonSize);
+	  mAddButton.setIconSize(mAddButtonIconSize);
     mAddButton.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {

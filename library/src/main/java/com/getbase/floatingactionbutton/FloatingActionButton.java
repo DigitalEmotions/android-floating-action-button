@@ -37,28 +37,37 @@ import java.lang.annotation.RetentionPolicy;
 
 public class FloatingActionButton extends ImageButton {
 
-  public static final int SIZE_NORMAL = 0;
-  public static final int SIZE_MINI = 1;
+	public static final int SIZE_NORMAL = 0;
+	public static final int SIZE_MINI = 1;
+	public static final int SIZE_LARGE = 2;
+	public static final int DRAWABLE_SIZE_NORMAL = 0;
+	public static final int DRAWABLE_SIZE_LARGE = 1;
+	public static final int DRAWABLE_SIZE_HUGE = 2;
 
-  @Retention(RetentionPolicy.SOURCE)
-  @IntDef({ SIZE_NORMAL, SIZE_MINI })
-  public @interface FAB_SIZE {
-  }
+
+	@Retention(RetentionPolicy.SOURCE)
+	@IntDef({ SIZE_NORMAL, SIZE_MINI, SIZE_LARGE })
+	public @interface FAB_SIZE {
+	}
+	@Retention(RetentionPolicy.SOURCE)
+	@IntDef({DRAWABLE_SIZE_NORMAL, DRAWABLE_SIZE_LARGE, DRAWABLE_SIZE_HUGE})
+	public @interface DRAWABLE_SIZE{}
 
   int mColorNormal;
   int mColorPressed;
   int mColorDisabled;
   String mTitle;
   @DrawableRes
-  private int mIcon;
-  private Drawable mIconDrawable;
-  private int mSize;
+  protected int mIcon;
+  protected Drawable mIconDrawable;
+	protected int mSize;
 
-  private float mCircleSize;
-  private float mShadowRadius;
-  private float mShadowOffset;
-  private int mDrawableSize;
-  boolean mStrokeVisible;
+	protected int mDrawableIconSize = DRAWABLE_SIZE_NORMAL;
+	protected float mCircleSize;
+	protected float mShadowRadius;
+	protected float mShadowOffset;
+	protected int mDrawableSize;
+	protected boolean mStrokeVisible;
 
   public FloatingActionButton(Context context) {
     this(context, null);
@@ -98,11 +107,33 @@ public class FloatingActionButton extends ImageButton {
   }
 
   private void updateCircleSize() {
-    mCircleSize = getDimension(mSize == SIZE_NORMAL ? R.dimen.fab_size_normal : R.dimen.fab_size_mini);
+	  switch (mSize){
+		  case SIZE_MINI :
+			  mCircleSize = getDimension(R.dimen.fab_size_mini);
+			  break;
+		  case SIZE_NORMAL :
+			  mCircleSize = getDimension(R.dimen.fab_size_normal);
+			  break;
+		  case SIZE_LARGE :
+			  mCircleSize = getDimension(R.dimen.fab_size_large);
+			  break;
+	  }
   }
 
+	public void setIconSize(@DRAWABLE_SIZE int size){
+		if(size != DRAWABLE_SIZE_NORMAL && size != DRAWABLE_SIZE_LARGE && size != DRAWABLE_SIZE_HUGE){
+			throw new IllegalArgumentException("Use @DRAWABLE_SIZE constants only!");
+		}
+		if (mDrawableIconSize != size) {
+			mDrawableIconSize = size;
+			updateCircleSize();
+			updateDrawableSize();
+			updateBackground();
+		}
+	}
+
   public void setSize(@FAB_SIZE int size) {
-    if (size != SIZE_MINI && size != SIZE_NORMAL) {
+    if (size != SIZE_MINI && size != SIZE_NORMAL && size != SIZE_LARGE) {
       throw new IllegalArgumentException("Use @FAB_SIZE constants only!");
     }
 
@@ -230,6 +261,20 @@ public class FloatingActionButton extends ImageButton {
     setMeasuredDimension(mDrawableSize, mDrawableSize);
   }
 
+
+	protected float getDrawableDimen(){
+		float result = 0f;
+		switch (mDrawableIconSize){
+			case DRAWABLE_SIZE_NORMAL:
+				return getDimension(R.dimen.fab_icon_size);
+			case DRAWABLE_SIZE_LARGE:
+				return getDimension(R.dimen.fab_icon_size_large);
+			case DRAWABLE_SIZE_HUGE:
+				return getDimension(R.dimen.fab_icon_size_huge);
+		}
+		return getDimension(R.dimen.fab_icon_size);
+	}
+
   void updateBackground() {
     final float strokeWidth = getDimension(R.dimen.fab_stroke_width);
     final float halfStrokeWidth = strokeWidth / 2f;
@@ -242,7 +287,7 @@ public class FloatingActionButton extends ImageButton {
             getIconDrawable()
         });
 
-    int iconOffset = (int) (mCircleSize - getDimension(R.dimen.fab_icon_size)) / 2;
+    int iconOffset = (int) (mCircleSize - getDrawableDimen()) / 2;
 
     int circleInsetHorizontal = (int) (mShadowRadius);
     int circleInsetTop = (int) (mShadowRadius - mShadowOffset);
