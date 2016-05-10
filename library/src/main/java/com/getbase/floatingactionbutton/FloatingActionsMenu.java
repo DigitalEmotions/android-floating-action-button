@@ -43,7 +43,7 @@ public class FloatingActionsMenu extends ViewGroup {
   public static final int LABELS_ON_LEFT_SIDE = 0;
   public static final int LABELS_ON_RIGHT_SIDE = 1;
 
-  protected static final int ANIMATION_DURATION = 300;
+  protected int ANIMATION_DURATION = 300;
   protected static final float COLLAPSED_PLUS_ROTATION = 0f;
   protected static final float EXPANDED_PLUS_ROTATION = 90f + 45f;
 	
@@ -120,7 +120,8 @@ public class FloatingActionsMenu extends ViewGroup {
 	  mExpandedColorPressed = attr.getColor(R.styleable.FloatingActionsMenu_fab_addButtonColorPressedExpanded, mAddButtonColorPressed);
 	  mCollapsedIcon = attr.getResourceId(R.styleable.FloatingActionsMenu_fab_collapsedIcon, 0);
 	  mAddButtonIconSize = attr.getInt(R.styleable.FloatingActionsMenu_fab_icon_size, FloatingActionButton.DRAWABLE_SIZE_NORMAL);
-    attr.recycle();
+	  ANIMATION_DURATION = attr.getInt(R.styleable.FloatingActionsMenu_fab_animationDuration, 300);
+	  attr.recycle();
 
     if (mLabelsStyle != 0 && expandsHorizontally()) {
       throw new IllegalStateException("Action labels in horizontal expand orientation is not supported.");
@@ -631,6 +632,7 @@ public class FloatingActionsMenu extends ViewGroup {
       mExpanded = true;
       mTouchDelegateGroup.setEnabled(true);
       mCollapseAnimation.cancel();
+		mExpandAnimation.setDuration(ANIMATION_DURATION);
       mExpandAnimation.start();
 		mAddButton.setExpanded(true);
 

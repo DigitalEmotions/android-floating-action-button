@@ -23,6 +23,7 @@
         <attr name="fab_addButtonColorNormalExpanded" format="color"/>
         <attr name="fab_addButtonColorPressedExpanded" format="color"/>
         <attr name="fab_collapsedIcon" format="reference"/>
+        <attr name="fab_animationDuration" format="integer"/>
         <attr name="fab_addButtonSize" format="enum">
             <enum name="normal" value="0"/>
             <enum name="mini" value="1"/>

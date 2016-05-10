@@ -97,13 +97,16 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        fab:fab_addButtonColorNormal="@color/white"
-        fab:fab_addButtonColorPressed="@color/white_pressed"
-        fab:fab_addButtonPlusIconColor="@color/half_black"
+        fab:fab_addButtonColorNormal="@color/green"
+        fab:fab_addButtonColorPressed="@color/green_pressed"
+        fab:fab_addButtonPlusIconColor="@color/white"
+        fab:fab_addButtonSize="large"
         fab:fab_labelStyle="@style/menu_labels_style"
-        fab:fab_addButtonColorNormalExpanded="@color/blue_semi_transparent"
-        fab:fab_addButtonColorPressedExpanded="@color/blue_semi_transparent"
-        fab:fab_collapsedIcon="@android:drawable/star_on"
+        fab:fab_icon_size="huge"
+        fab:fab_addButtonColorNormalExpanded="@color/black"
+        fab:fab_addButtonColorPressedExpanded="@color/black"
+        fab:fab_collapsedIcon="@drawable/icon_omni_android"
+        fab:fab_animationDuration="500"
         android:layout_marginBottom="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginEnd="16dp">
@@ -121,7 +124,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             fab:fab_colorNormal="@color/white"
-            fab:fab_title="Action with a very long name that won\'t fit on the screen"
+            fab:fab_title="Action"
             fab:fab_colorPressed="@color/white_pressed"/>
 
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
