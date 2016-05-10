@@ -5,7 +5,7 @@
 
     <dimen name="fab_icon_size">24dp</dimen>
     <dimen name="fab_icon_size_large">48dp</dimen>
-    <dimen name="fab_icon_size_huge">72dp</dimen>
+    <dimen name="fab_icon_size_huge">65dp</dimen>
 
     <dimen name="fab_plus_icon_size">14dp</dimen>
     <dimen name="fab_plus_icon_size_large">24dp</dimen>
