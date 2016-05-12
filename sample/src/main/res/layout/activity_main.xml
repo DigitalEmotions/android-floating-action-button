@@ -38,7 +38,9 @@
         fab:fab_addButtonColorNormalExpanded="@color/black"
         fab:fab_addButtonColorPressedExpanded="@color/black"
         fab:fab_collapsedIcon="@drawable/icon_omni_android"
-        fab:fab_animationDuration="500"
+        fab:fab_animationDurationExpand="500"
+        fab:fab_animationDurationCollapse="300"
+        fab:fab_label_margin="2dp"
         fab:fab_plusIconSize="normal"
         fab:fab_addButtonScaleOnMenuExpand="0.75"
         android:layout_marginBottom="16dp"
@@ -56,14 +58,14 @@
             android:id="@+id/action_b"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            fab:fab_title="Action A"
+            fab:fab_title="Help me"
             fab:fab_colorNormal="@color/add_family_yellow_disabled"/>
 
 <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/action_c"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            fab:fab_title="Action A"
+            fab:fab_title="Really long Action"
             fab:fab_colorNormal="@color/accept_user_blue_disabled"/>
 
 <com.getbase.floatingactionbutton.FloatingActionButton
@@ -71,14 +73,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:alpha="0.3"
-            fab:fab_title="Action A"
+            fab:fab_title="Act"
             fab:fab_colorNormal="@color/camera_button_orange"/>
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/action_e"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            fab:fab_title="Action A"
+            fab:fab_title="Look at this awesome button"
             fab:fab_colorNormal="@color/camera_button_orange_disabled"/>
 
 

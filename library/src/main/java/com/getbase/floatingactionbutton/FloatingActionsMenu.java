@@ -43,7 +43,8 @@ public class FloatingActionsMenu extends ViewGroup {
   public static final int LABELS_ON_LEFT_SIDE = 0;
   public static final int LABELS_ON_RIGHT_SIDE = 1;
 
-  protected int ANIMATION_DURATION = 300;
+  protected int ANIMATION_DURATION_EXPAND = 300;
+	protected int ANIMATION_DURATION_COLLAPSE = 300;
   protected static final float COLLAPSED_PLUS_ROTATION = 0f;
   protected static final float EXPANDED_PLUS_ROTATION = 90f + 45f;
 	
@@ -66,8 +67,8 @@ public class FloatingActionsMenu extends ViewGroup {
 
   protected boolean mExpanded;
 
-  protected AnimatorSet mExpandAnimation = new AnimatorSet().setDuration(ANIMATION_DURATION);
-  protected AnimatorSet mCollapseAnimation = new AnimatorSet().setDuration(ANIMATION_DURATION);
+  protected AnimatorSet mExpandAnimation = new AnimatorSet().setDuration(ANIMATION_DURATION_EXPAND);
+  protected AnimatorSet mCollapseAnimation = new AnimatorSet().setDuration(ANIMATION_DURATION_COLLAPSE);
 
 
   protected AddFloatingActionButton mAddButton;
@@ -122,8 +123,10 @@ public class FloatingActionsMenu extends ViewGroup {
 	  mExpandedColorPressed = attr.getColor(R.styleable.FloatingActionsMenu_fab_addButtonColorPressedExpanded, mAddButtonColorPressed);
 	  mCollapsedIcon = attr.getResourceId(R.styleable.FloatingActionsMenu_fab_collapsedIcon, 0);
 	  mAddButtonIconSize = attr.getInt(R.styleable.FloatingActionsMenu_fab_icon_size, FloatingActionButton.DRAWABLE_SIZE_NORMAL);
-	  ANIMATION_DURATION = attr.getInt(R.styleable.FloatingActionsMenu_fab_animationDuration, 300);
+	  ANIMATION_DURATION_EXPAND = attr.getInt(R.styleable.FloatingActionsMenu_fab_animationDurationExpand, 300);
+	  ANIMATION_DURATION_COLLAPSE = attr.getInt(R.styleable.FloatingActionsMenu_fab_animationDurationCollapse, 300);
 	  mMenuExpandScale = attr.getFloat(R.styleable.FloatingActionsMenu_fab_addButtonScaleOnMenuExpand, 1.0f);
+	  mLabelsMargin = attr.getDimensionPixelSize(R.styleable.FloatingActionsMenu_fab_label_margin, mLabelsMargin);
 	  attr.recycle();
 
     if (mLabelsStyle != 0 && expandsHorizontally()) {
@@ -636,7 +639,7 @@ public class FloatingActionsMenu extends ViewGroup {
     if (mExpanded) {
       mExpanded = false;
       mTouchDelegateGroup.setEnabled(false);
-      mCollapseAnimation.setDuration(immediately ? 0 : ANIMATION_DURATION);
+      mCollapseAnimation.setDuration(immediately ? 0 : ANIMATION_DURATION_COLLAPSE);
       mCollapseAnimation.start();
 		mAddButton.setExpanded(false);
       mExpandAnimation.cancel();
@@ -661,7 +664,7 @@ public class FloatingActionsMenu extends ViewGroup {
       mExpanded = true;
       mTouchDelegateGroup.setEnabled(true);
       mCollapseAnimation.cancel();
-		mExpandAnimation.setDuration(ANIMATION_DURATION);
+		mExpandAnimation.setDuration(ANIMATION_DURATION_EXPAND);
       mExpandAnimation.start();
 		mAddButton.setExpanded(true);
 

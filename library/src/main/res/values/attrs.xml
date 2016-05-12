@@ -23,13 +23,15 @@
         </attr>
     </declare-styleable>
     <declare-styleable name="FloatingActionsMenu">
+        <attr name="fab_label_margin" format="dimension"/>
         <attr name="fab_addButtonScaleOnMenuExpand" format="float"/>
         <attr name="fab_addButtonColorPressed" format="color"/>
         <attr name="fab_addButtonColorNormal" format="color"/>
         <attr name="fab_addButtonColorNormalExpanded" format="color"/>
         <attr name="fab_addButtonColorPressedExpanded" format="color"/>
         <attr name="fab_collapsedIcon" format="reference"/>
-        <attr name="fab_animationDuration" format="integer"/>
+        <attr name="fab_animationDurationExpand" format="integer"/>
+        <attr name="fab_animationDurationCollapse" format="integer"/>
         <attr name="fab_addButtonSize" format="enum">
             <enum name="normal" value="0"/>
             <enum name="mini" value="1"/>
