@@ -311,6 +311,7 @@ public class FloatingActionButton extends ImageButton {
         circleInsetHorizontal + iconOffset,
         circleInsetBottom + iconOffset);
 
+
     setBackgroundCompat(layerDrawable);
   }
 

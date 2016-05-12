@@ -58,6 +58,8 @@ public class FloatingActionsMenu extends ViewGroup {
 	protected int mExpandedColorPressed;
 	protected int mCollapsedIcon;
 
+	protected float mMenuExpandScale = 1.0f;
+
   protected int mButtonSpacing;
   protected int mLabelsMargin;
   protected int mLabelsVerticalOffset;
@@ -121,6 +123,7 @@ public class FloatingActionsMenu extends ViewGroup {
 	  mCollapsedIcon = attr.getResourceId(R.styleable.FloatingActionsMenu_fab_collapsedIcon, 0);
 	  mAddButtonIconSize = attr.getInt(R.styleable.FloatingActionsMenu_fab_icon_size, FloatingActionButton.DRAWABLE_SIZE_NORMAL);
 	  ANIMATION_DURATION = attr.getInt(R.styleable.FloatingActionsMenu_fab_animationDuration, 300);
+	  mMenuExpandScale = attr.getFloat(R.styleable.FloatingActionsMenu_fab_addButtonScaleOnMenuExpand, 1.0f);
 	  attr.recycle();
 
     if (mLabelsStyle != 0 && expandsHorizontally()) {
@@ -500,6 +503,12 @@ public class FloatingActionsMenu extends ViewGroup {
     protected ObjectAnimator mExpandAlpha = new ObjectAnimator();
     protected ObjectAnimator mCollapseDir = new ObjectAnimator();
     protected ObjectAnimator mCollapseAlpha = new ObjectAnimator();
+
+	  protected ObjectAnimator mExpandX = new ObjectAnimator();
+	  protected ObjectAnimator mExpandY = new ObjectAnimator();
+	  protected ObjectAnimator mCollapseX = new ObjectAnimator();
+	  protected ObjectAnimator mCollapseY = new ObjectAnimator();
+
     protected boolean animationsSetToPlay;
 
     public LayoutParams(ViewGroup.LayoutParams source) {
@@ -515,6 +524,17 @@ public class FloatingActionsMenu extends ViewGroup {
 
       mExpandAlpha.setProperty(View.ALPHA);
       mExpandAlpha.setFloatValues(0f, 1f);
+
+		mExpandX.setProperty(View.SCALE_X);
+		mExpandY.setProperty(View.SCALE_Y);
+		mExpandX.setFloatValues(mMenuExpandScale);
+		mExpandY.setFloatValues(mMenuExpandScale);
+
+		mCollapseX.setProperty(View.SCALE_X);
+		mCollapseY.setProperty(View.SCALE_Y);
+		mCollapseX.setFloatValues(1f);
+		mCollapseY.setFloatValues(1f);
+
 
       switch (mExpandDirection) {
       case EXPAND_UP:
@@ -535,6 +555,10 @@ public class FloatingActionsMenu extends ViewGroup {
       mCollapseDir.setTarget(view);
       mExpandAlpha.setTarget(view);
       mExpandDir.setTarget(view);
+		mExpandX.setTarget(mAddButton);
+		mExpandY.setTarget(mAddButton);
+		mCollapseX.setTarget(mAddButton);
+		mCollapseY.setTarget(mAddButton);
 
       // Now that the animations have targets, set them to be played
       if (!animationsSetToPlay) {
@@ -543,8 +567,13 @@ public class FloatingActionsMenu extends ViewGroup {
 
         mCollapseAnimation.play(mCollapseAlpha);
         mCollapseAnimation.play(mCollapseDir);
+        mCollapseAnimation.play(mCollapseX);
+        mCollapseAnimation.play(mCollapseY);
         mExpandAnimation.play(mExpandAlpha);
         mExpandAnimation.play(mExpandDir);
+		  mExpandAnimation.play(mExpandX);
+		  mExpandAnimation.play(mExpandY);
+
         animationsSetToPlay = true;
       }
     }

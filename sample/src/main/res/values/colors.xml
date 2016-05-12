@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="black_semi_transparent">#B2000000</color>
-    <color name="background">#e5e5e5</color>
+    <color name="background">#ea888888</color>
     <color name="half_black">#808080</color>
     <color name="white">#fafafa</color>
     <color name="white_pressed">#f1f1f1</color>
@@ -12,4 +12,20 @@
     <color name="black">#000</color>
     <color name="green">#228844</color>
     <color name="green_pressed">#116633</color>
+
+
+    <color name="feedback_green_disabled">#503FA398</color>
+    <color name="add_family_yellow_disabled">#50FFDA28</color>
+    <color name="switch_user_pink_disabled">#50EF6FA7</color>
+    <color name="accept_user_blue_disabled">#503CADE3</color>
+    <color name="camera_button_orange_disabled">#50F49734</color>
+
+    <color name="feedback_green">#3FA398</color>
+    <color name="add_family_yellow">#FFDA28</color>
+    <color name="add_names_background_yellow">#f1eace</color>
+    <color name="switch_user_pink">#EF6FA7</color>
+    <color name="accept_user_blue">#3CADE3</color>
+    <color name="camera_button_orange">#F49734</color>
+
+
 </resources>
