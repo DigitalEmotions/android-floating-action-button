@@ -72,9 +72,10 @@
             android:id="@+id/action_d"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:alpha="0.3"
             fab:fab_title="Act"
-            fab:fab_colorNormal="@color/camera_button_orange"/>
+            fab:fab_icon="@drawable/ic_omni_launcher"
+            fab:fab_colorNormal="@color/camera_button_orange"
+            fab:fab_colorDisabled="@color/camera_button_orange"/>
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/action_e"

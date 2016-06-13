@@ -12,21 +12,36 @@ import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import java.util.Random;
+
 public class MainActivity extends Activity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
+
+	  final FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.action_d);
+	  //fab.getBackground().setAlpha(60);
+	  fab.setCustomAlpha(0.2f);
+
+
+	  ImageButton button2 = (ImageButton)findViewById(R.id.image_button2);
+	  button2.setOnClickListener(new View.OnClickListener(){
+		  @Override
+		  public void onClick(View v) {
+			  fab.setCustomAlpha(new Random().nextFloat());
+		  }
+	  });
+
 	  ImageButton button = (ImageButton)findViewById(R.id.image_button);
-	  button.setAlpha(0.3f);
+	  button.setOnClickListener(new OnClickListener() {
+		  @Override
+		  public void onClick(View v) {
+			  fab.setEnabled(!fab.isEnabled());
+		  }
+	  });
 
- 		ImageButton button2 = (ImageButton)findViewById(R.id.image_button2);
-	  button2.setAlpha(0.3f);
-
-
-	  FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.action_d);
-	  fab.getBackground().setAlpha(30);
 
   }
 }
