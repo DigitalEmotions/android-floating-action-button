@@ -268,6 +268,12 @@ public class FloatingActionsMenu extends ViewGroup {
 	}
 
 	public void removeButton(FloatingActionButton button) {
+		View label = button.getLabelView();
+		mExpandAlphaAnimators.remove(label);
+		mExpandAlphaAnimators.remove(button);
+		mCollapseAlphaAnimators.remove(label);
+		mCollapseAlphaAnimators.remove(button);
+
 		removeView(button.getLabelView());
 		removeView(button);
 		button.setTag(R.id.fab_label, null);
@@ -371,6 +377,15 @@ public class FloatingActionsMenu extends ViewGroup {
 						addButtonY - mButtonSpacing :
 						addButtonY + mAddButton.getMeasuredHeight() + mButtonSpacing;
 
+
+				for(ObjectAnimator anim: mExpandAlphaAnimators.values()){
+					anim.cancel();
+				}
+				for(ObjectAnimator anim: mCollapseAlphaAnimators.values()){
+					anim.cancel();
+				}
+				mExpandAlphaAnimators.clear();
+				mCollapseAlphaAnimators.clear();
 				for (int i = mButtonsCount - 1; i >= 0; i--) {
 					final View child = getChildAt(i);
 
